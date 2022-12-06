@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda</title>
+  </head>
+    <style>
+
+        form {
+            width: 450px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="text"],
+        input[type="number"],
+
+        textarea {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .title{
+          text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+      <button id="productButton">Ver productos</button>
+      
+      <form action="/product" method="post">
+            <h1 class="title">Carga un producto</h1>
+
+            <label for="name">Name</label>
+            <input type="text" id="Nombre" name="name">
+
+            <label for="price">Precio</label>
+            <input type="number" placeholder="Precio" name="price" />
+
+            <label for="image">Imagen</label>
+            <input type="text" placeholder="Imagen" name="thumbnail" />
+
+            <input type="submit" value="Cargar producto" />
+        </form>
+    </div>
+    <script>
+      const productButton = document.getElementById("productButton");
+      productButton.addEventListener("click", (event) => {
+        window.location = "/product";
+      });
+    </script>
+</body>
+</html>
