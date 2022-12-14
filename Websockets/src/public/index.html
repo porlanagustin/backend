@@ -44,6 +44,13 @@
     margin-bottom: 16px;
 }
 
+#messageForm Input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
 thead{
     background-color: #24303c;
 }
@@ -80,8 +87,32 @@ th{
             </tbody>
         </table>
     </div>
+</div>
+
+<div class="productContainer"> 
+
+<div class="form">
+
+    <form  id="messageForm">
+            <input id="emailInput" type="text" placeholder="Ingresa tu email">
+            <input id="messageInput" type="text" placeholder="Mensaje">
+            <input type="submit">
+    </form>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody id="messagesPool">
+        </tbody>
+    </table>
 
 </div>
+
+</div>    
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
