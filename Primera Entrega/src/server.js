@@ -1,34 +1,22 @@
-import express, { Router } from 'express';
+import express, { json, urlencoded } from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import productsRouter from "./routes/products.route.js";
+import cartRouter from "./routes/cart.route.js";
+import loginHtml from "./routes/login.route.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const router = Router();
 
+app.use('/api/', loginHtml);
+app.use('/api/products', productsRouter);
+app.use('/api/cart', cartRouter);
 
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
-router.route('/api/productos').get((req,res) => {
-
-}).post((req,res) => {
-
-}).delete((req,res) => {
-
-});
-
-
-router.route('/api/carrito').post((req,res) => {
-
-}).delete((req,res) => {
-
-}).get((req,res) => {
-
-}).post((req,res) => {
-
-}).delete((req,res) => {
-
-});
-
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
 
 
 app.listen(8080, () => {
