@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 const router = Router();
 
 router.route("/").get((req, res) => {
-    res.sendFile(path.join(__dirname, "../html/login.html"));
+    res.sendFile(path.join(__dirname, "../html/formProduct.html"));
 });
 
 export default router;

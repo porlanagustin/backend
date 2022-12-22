@@ -5,11 +5,13 @@ const router = Router();
 
 const products = [{
     id: 1,
-    name: 'diamante'
+    name: 'diamante',
+    price: 100
 },
 {
     id: 2,
-    name: 'oro'
+    name: 'oro',
+    price: 50
 }];
 
 const checkIfAdminMiddleware = (req, res, next) => {
@@ -25,6 +27,31 @@ const checkIfAdminMiddleware = (req, res, next) => {
     }
 };
 
+router.route('/').get((req,res) => {
+    res.json(products);
+}).post((req,res) => {
+
+    const { nameProduct  } = req.body;
+    const { priceProduct } = req.body;
+
+    const newProductId = products[products.length -1].id + 1;
+
+    const newProduct = {
+        id: newProductId, 
+        name: nameProduct, 
+        price: priceProduct,};
+        
+    const response = {
+        status: 'created',
+        data: newProduct,
+    };    
+
+    products.push(newProduct);
+
+    res.status(201).json(response);
+
+});
+
 router.route('/:id').get((req,res) => {
 
     const { id } = req.params;
@@ -35,17 +62,14 @@ router.route('/:id').get((req,res) => {
     }
 
     res.json(productSelect);
-});
-
-router.route('/').get((req,res) => {
-    res.json(products);
-}).post(checkIfAdminMiddleware, (req,res) => {
-    res.send('post ok');
 }).put(checkIfAdminMiddleware, (req,res) => {
 
 }).delete(checkIfAdminMiddleware, (req,res) => {
     res.send('delete ok');
 });
+
+
+
 
 export default router;
 
