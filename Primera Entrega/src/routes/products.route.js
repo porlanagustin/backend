@@ -12,6 +12,19 @@ const products = [{
     name: 'oro'
 }];
 
+const checkIfAdminMiddleware = (req, res, next) => {
+    const userType = req.header("userType");
+
+    if (userType === "ADMIN") {
+    next();
+    } else {
+    res.status(401).json({
+        status: "Sin autorizacion",
+        data: null,
+    });
+    }
+};
+
 router.route('/:id').get((req,res) => {
 
     const { id } = req.params;
@@ -26,9 +39,11 @@ router.route('/:id').get((req,res) => {
 
 router.route('/').get((req,res) => {
     res.json(products);
-}).post((req,res) => {
+}).post(checkIfAdminMiddleware, (req,res) => {
     res.send('post ok');
-}).delete((req,res) => {
+}).put(checkIfAdminMiddleware, (req,res) => {
+
+}).delete(checkIfAdminMiddleware, (req,res) => {
     res.send('delete ok');
 });
 
