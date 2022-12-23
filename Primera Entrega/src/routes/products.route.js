@@ -29,11 +29,10 @@ const checkIfAdminMiddleware = (req, res, next) => {
 
 router.route('/').get((req,res) => {
     res.json(products);
-}).post((req,res) => {
+}).post(upload.any(), (req,res) => {
 
-    const { nameProduct  } = req.body;
-    const { priceProduct } = req.body;
-
+    const { nameProduct, priceProduct  } = req.body;
+    
     const newProductId = products[products.length -1].id + 1;
 
     const newProduct = {

@@ -8,12 +8,10 @@ const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-    const destination = path.join(__dirname, "../uploads");
-
-    cb(null, destination);
+    cb(null, "upload");
 },
     filename: (req, file, cb) => {
-    cb(null, file.joyas);
+    cb(null, file.originalname);
 },
 });
 

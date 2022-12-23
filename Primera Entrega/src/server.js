@@ -5,6 +5,7 @@ import productsRouter from "./routes/products.route.js";
 import baseRouter from "./routes/base.route.js";
 import path from 'path';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use("/images", express.static(path.join(__dirname + "/uploads")));
+
 
 app.use((req, res, next) => {
     next()
