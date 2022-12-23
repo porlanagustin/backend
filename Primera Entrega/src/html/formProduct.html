@@ -7,11 +7,23 @@
     <title>Productos</title>
 </head>
 <body>
+    <div>
         <h1>Carga tu producto</h1>
         <form action="/api/products" enctype="multipart/form-data" method="post">
             <input type="text" name="nameProduct" placeholder="Nombre"> <br>
             <input type="number" name="priceProduct" placeholder="Precio"> <br>
             <input type="submit">
         </form>
+    </div>
+    <div>
+        <h1>Modifica un producto</h1>
+        <form action="/api/products" enctype="multipart/form-data" method="put">
+            <input type="number" name="id" placeholder="Id"> <br>
+            <input type="text" name="nameModify" placeholder="Nombre"> <br>
+            <input type="number" name="priceModify" placeholder="Precio"> <br>
+            <input type="submit">
+        </form>
+    </div>
+    </div>    
 </body>
 </html>

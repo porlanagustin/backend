@@ -32,7 +32,7 @@ router.route('/').get((req,res) => {
 }).post(upload.any(), (req,res) => {
 
     const { nameProduct, priceProduct  } = req.body;
-    
+
     const newProductId = products[products.length -1].id + 1;
 
     const newProduct = {
@@ -61,7 +61,24 @@ router.route('/:id').get((req,res) => {
     }
 
     res.json(productSelect);
-}).put(checkIfAdminMiddleware, (req,res) => {
+}).put((req,res) => {
+
+    const { id } = req.params;
+
+    const { name, price } = req.body;
+
+    const indexProdToUpdate = products.find((product) => product.id === Number(id));
+
+    if(!indexProdToUpdate){
+        req.status(404).json({status: "No encontrado", data: null});
+    }
+
+    products.splice(indexProdToUpdate, 1, { id, name, price});
+
+    res.status(200).json({
+        status: "Updated",
+        data: { id, name, price},
+    });
 
 }).delete(checkIfAdminMiddleware, (req,res) => {
     res.send('delete ok');
