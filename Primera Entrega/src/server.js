@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import productsRouter from "./routes/products.route.js";
 import baseRouter from "./routes/base.route.js";
+import cartRouter from "./routes/cart.route.js";
 import path from 'path';
 
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
     next()
 });
 
+app.use('/api/cart', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', baseRouter);
 

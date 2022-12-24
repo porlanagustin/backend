@@ -61,7 +61,7 @@ router.route('/:id').get((req,res) => {
     }
 
     res.json(productSelect);
-}).put((req,res) => {
+}).put(checkIfAdminMiddleware, (req,res) => {
 
     const { id } = req.params;
 
@@ -81,11 +81,21 @@ router.route('/:id').get((req,res) => {
     });
 
 }).delete(checkIfAdminMiddleware, (req,res) => {
-    res.send('delete ok');
+    const { id } = req.params;
+    const indexProductToDelete = products.findIndex((product) => product.id === Number(id));
+    const productToDelete = products[indexProductToDelete];
+
+    if (!productToDelete) {
+        return res.status(404).json({ status: "Not found", data: null });
+    };
+
+    products.splice(indexProductToDelete, 1);
+
+    res.status(404).json({
+        status: "Delete",
+        data: productToDelete,
+    });
 });
-
-
-
 
 export default router;
 
