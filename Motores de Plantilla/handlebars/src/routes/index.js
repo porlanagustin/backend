@@ -15,6 +15,8 @@ router.post("/product", (req, res) => {
 
   products.push({ name, price, thumbnail });
 
+  console.log(products);
+
   res.redirect("/");
 });
 

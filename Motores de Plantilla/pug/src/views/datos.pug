@@ -1,16 +1,18 @@
 extends main.pug 
 
 block datos
-    button(id="productButton")=showProduct
-    form(style=styleForm action="/product" method="post")
+    form(style=styleForm, action="/product" method="post")
         h1(style="text-align: center;")=loadProduct
         label(for="name") Name
         input(type="text" id="Nombre" name="name")
         label(for="price") Precio
         input(type="number" placeholder="Precio" name="price")
-        label(style=red for="image") Imagen
+        label(for="image") Imagen
         input(type="text" placeholder="Imagen" name="thumbnail")
-        input(style=loadStyle type="submit" value="Cargar un producto")  
+        input(style=loadStyle, type="submit" value="Cargar un producto")
+
+    form(action="/product" method="get")
+        button(id="productButton")=showProduct 
     
 
 
