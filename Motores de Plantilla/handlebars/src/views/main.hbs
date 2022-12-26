@@ -1,0 +1,19 @@
+{{> nav}}
+
+<div class="container">
+
+    <form action="/product" method="post">
+            <h1 class="title">Carga un producto</h1>
+
+            <label for="name">Name</label>
+            <input type="text" id="Nombre" name="name">
+
+            <label for="price">Precio</label>
+            <input type="number" placeholder="Precio" name="price" />
+
+            <label for="image">Imagen</label>
+            <input type="text" placeholder="Imagen" name="image" />
+
+            <input type="submit" value="Cargar producto"/>
+        </form>
+    </div>

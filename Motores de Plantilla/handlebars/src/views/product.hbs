@@ -1,6 +1,10 @@
-<h1>Productos</h1>
-    <ul>
-        <li>{{name}}</li>
-        <li>{{price}}</li>
-        <li>{{image}}</li>
-    </ul>
+{{> nav}}
+
+<h1>Productos Disponibles</h1>
+{{#if hasAny}}
+{{#each products}}
+<h2>{{this.name}}</h2>
+<p>{{this.price}}</p>
+<img src="" alt="" width="100">{{this.image}}</img>
+{{/each}}
+{{/if}}

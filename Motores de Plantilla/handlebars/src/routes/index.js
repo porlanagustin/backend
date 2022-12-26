@@ -1,27 +1,26 @@
 import { Router } from "express";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
+import upload from "../libs/multer.js";
 
 const router = Router();
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const products = [];
 
-router.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "../views/productForm.html"));
-});
-
-router.post("/product", (req, res) => {
-  const { name, price, thumbnail } = req.body;
-
-  products.push({ name, price, thumbnail });
-
-  console.log(products);
-
-  res.redirect("/");
-});
+router.get('/', (req, res) => {
+    res.render('main');
+})
 
 router.get("/product", (req, res) => {
-  res.render("products.html", { products });
+    console.log("funciona el get");
+    res.render("product", { products, hasAny: true });
+});
+
+router.post('/product', (req, res) => {
+    console.log("funciona el post");
+    
+    //const { name, price, image } = req.body;
+
+    products.push({ name: 'agus', price: 11, image: 'no hay'});
+
+    res.redirect("/");
 });
 
 export default router;
