@@ -1,42 +1,23 @@
 import e, { Router } from "express";
 import upload from "../libs/multer.js";
+import fs from 'fs';
 
 const router = Router();
 
-const cart = [{
-    id: 1,
-    items: [{
-        name: "bondiola",
-        id: 1
-    },
-{
-    name: "cremoso",
-    id: 2 
-}]
-},
-{
-    id: 2,
-    items: [{
-        name: "salame",
-        id: 3
-    },
-{
-    name: "jamon",
-    id: 4 
-}]
-},
-{
-    id: 3,
-    items: [{
-        name: "jamon serrano",
-        id: 5
-    },
-{
-    name: "provolone",
-    id: 6
-}]
-}];
+//CART
+let dataCart = fs.readFileSync("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json");
+const cart = JSON.parse(dataCart);
 
+
+
+
+
+
+
+
+
+
+//ROUTES
 router.route('/').post((req,res) => {
 
     function getRandom(min, max) {
@@ -128,5 +109,5 @@ router.route('/:id/products/:id_prod').delete((req,res) => {
 
 
 
-
+//EXPORT
 export default router;

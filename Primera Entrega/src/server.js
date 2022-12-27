@@ -16,7 +16,6 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use("/images", express.static(path.join(__dirname + "/uploads")));
 
-
 app.use((req, res, next) => {
     next()
 });
@@ -24,8 +23,6 @@ app.use((req, res, next) => {
 app.use('/api/cart', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', baseRouter);
-
-
 
 app.listen(8080, (error) => {
     if (error) {

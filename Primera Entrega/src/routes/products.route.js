@@ -1,19 +1,15 @@
 import e, { Router } from "express";
 import upload from "../libs/multer.js";
+import fs from 'fs';
 
 const router = Router();
 
-const products = [{
-    id: 1,
-    name: 'diamante',
-    price: 100
-},
-{
-    id: 2,
-    name: 'oro',
-    price: 50
-}];
+//PRODUCTS
+let dataProducts = fs.readFileSync("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/products.json");
+const products = JSON.parse(dataProducts);
 
+
+//MIDLEWARE
 const checkIfAdminMiddleware = (req, res, next) => {
     const userType = req.header("userType");
 
@@ -27,6 +23,8 @@ const checkIfAdminMiddleware = (req, res, next) => {
     }
 };
 
+
+//ROUTES
 router.route('/').get((req,res) => {
     res.json(products);
 }).post(upload.any(), (req,res) => {
@@ -97,6 +95,7 @@ router.route('/:id').get((req,res) => {
     });
 });
 
+//EXPORT
 export default router;
 
 
