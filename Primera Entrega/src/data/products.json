@@ -4,25 +4,19 @@
     "nombre": "Sugus",
     "descripcion": "Caramelos sabor multifruta",
     "codigo": 12345,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-    "price": 230,
-    "stock": false},
+    "price": 230},
 
     {"id":"2",
     "timestamp": "10/11",
     "nombre":"Gomitas",
     "descripcion": "Gomitas masticables",
     "codigo": 12346,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-    "price": 20,
-    "stock": true},
+    "price": 20},
 
     {"id":"3",
     "timestamp": "11/11",
     "nombre":"Chicles",
     "descripcion": "Chicles masticables",
     "codigo": 12347,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-    "price": 200,
-    "stock": true}
+    "price": 200}
 ]

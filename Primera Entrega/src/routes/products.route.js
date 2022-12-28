@@ -74,26 +74,7 @@ router.route('/:id').get((req,res) => {
 
     res.json(productSelect);
 
-}).put(checkIfAdminMiddleware, (req,res) => {
-    
-    const { id } = req.params;
-
-    const { name, price } = req.body;
-
-    const indexProdToUpdate = products.find((product) => product.id === Number(id));
-
-    if(!indexProdToUpdate){
-        req.status(404).json({status: "No encontrado", data: null});
-    }
-
-    products.splice(indexProdToUpdate, 1, { id, name, price});
-
-    res.status(200).json({
-        status: "Updated",
-        data: { id, name, price},
-    });
-
-}).delete((req,res) => {
+}).delete(checkIfAdminMiddleware,(req,res) => {
 
     const { id } = req.params;
 
@@ -110,6 +91,25 @@ router.route('/:id').get((req,res) => {
         "Nuevo Listado": newProducts
     });
 
+}).put( (req,res) => {
+
+    const { id } = req.params;
+    const { timestamp, nombre, descripcion, codigo, price} = req.body;
+    const newProduct = { id, timestamp, nombre, descripcion, codigo, price};
+    const newArray = products.filter(item => item.id != Number(id));
+
+    newArray.push(newProduct);
+    
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/products.json", JSON.stringify(newArray));
+    }catch (error){
+        res.send('No fue posible modificar el producto');
+    }
+    
+    res.json({
+        title: "Producto modificado",
+        "Lista de productos nueva": newArray
+    });
 });
 
 //EXPORT
