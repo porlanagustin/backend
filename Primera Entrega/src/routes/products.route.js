@@ -27,27 +27,45 @@ const checkIfAdminMiddleware = (req, res, next) => {
 //ROUTES
 router.route('/').get((req,res) => {
     res.json(products);
+
+
+
+
+
 }).post(upload.any(), (req,res) => {
 
-    const { nameProduct, priceProduct  } = req.body;
+    const listProduct = products;
 
-    const newProductId = products[products.length -1].id + 1;
+    const { timestamp, nombre, descripcion, codigo, price} = req.body;
 
-    const newProduct = {
-        id: newProductId, 
-        name: nameProduct, 
-        price: priceProduct,};
+    let newProductId
+
+    if(products.length == 0){
+        newProductId = 1
+    }else{
+        newProductId = products[products.length -1].id + 1;
+    }
+
+    const newProduct = { id: newProductId, timestamp, nombre, descripcion, codigo, price};
+
+    listProduct.push(newProduct);
+
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/products.json", JSON.stringify(listProduct))
+    } catch (error) {
+        throw new Error(`Error al guardar un objeto nuevo: ${error}`)
+    }
         
-    const response = {
-        status: 'created',
-        data: newProduct,
-    };    
 
-    products.push(newProduct);
-
-    res.status(201).json(response);
+    res.status(201).json({
+        title: "Objeto agregado",
+        data: listProduct
+    });
 
 });
+
+
+
 
 router.route('/:id').get((req,res) => {
 
@@ -97,6 +115,7 @@ router.route('/:id').get((req,res) => {
 
 //EXPORT
 export default router;
+
 
 
 
