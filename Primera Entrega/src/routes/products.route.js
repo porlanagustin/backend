@@ -1,6 +1,7 @@
 import e, { Router } from "express";
 import upload from "../libs/multer.js";
 import fs from 'fs';
+import { get } from "http";
 
 const router = Router();
 
@@ -27,10 +28,6 @@ const checkIfAdminMiddleware = (req, res, next) => {
 //ROUTES
 router.route('/').get((req,res) => {
     res.json(products);
-
-
-
-
 
 }).post(upload.any(), (req,res) => {
 
@@ -65,11 +62,10 @@ router.route('/').get((req,res) => {
 });
 
 
-
-
 router.route('/:id').get((req,res) => {
 
     const { id } = req.params;
+
     const productSelect = products.find((product) => product.id === Number(id));
 
     if(!productSelect){
@@ -77,8 +73,9 @@ router.route('/:id').get((req,res) => {
     }
 
     res.json(productSelect);
-}).put(checkIfAdminMiddleware, (req,res) => {
 
+}).put(checkIfAdminMiddleware, (req,res) => {
+    
     const { id } = req.params;
 
     const { name, price } = req.body;
@@ -96,21 +93,23 @@ router.route('/:id').get((req,res) => {
         data: { id, name, price},
     });
 
-}).delete(checkIfAdminMiddleware, (req,res) => {
+}).delete((req,res) => {
+
     const { id } = req.params;
-    const indexProductToDelete = products.findIndex((product) => product.id === Number(id));
-    const productToDelete = products[indexProductToDelete];
 
-    if (!productToDelete) {
-        return res.status(404).json({ status: "Not found", data: null });
-    };
+    const newProducts = products.filter(item => item.id != Number(id));
 
-    products.splice(indexProductToDelete, 1);
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/products.json", JSON.stringify(newProducts));
+    }catch (error){
+        res.send('No fue posible eliminar el producto');
+    }
 
-    res.status(404).json({
-        status: "Delete",
-        data: productToDelete,
+    res.json({
+        title: "Producto eliminado",
+        "Nuevo Listado": newProducts
     });
+
 });
 
 //EXPORT
