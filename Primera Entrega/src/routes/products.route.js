@@ -27,7 +27,18 @@ const checkIfAdminMiddleware = (req, res, next) => {
 
 //ROUTES
 router.route('/').get((req,res) => {
-    res.json(products);
+
+    let htmlProducts = ``;
+
+    products.forEach(element => {
+
+        htmlProducts += `<h1>${element.nombre}</h1>
+                        <p>${element.price}</h1>`;
+    });
+
+    res.send(htmlProducts);
+
+    
 
 }).post(upload.any(), (req,res) => {
 

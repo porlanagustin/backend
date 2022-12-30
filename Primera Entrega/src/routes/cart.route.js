@@ -8,37 +8,22 @@ const router = Router();
 let dataCart = fs.readFileSync("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json");
 const cart = JSON.parse(dataCart);
 
-
-
-
-
-
-
-
-
-
 //ROUTES
 router.route('/').post((req,res) => {
 
-    function getRandom(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-    
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
+    res.send('llega un carrito')
 
-    let id = getRandom(0, 101);
-
-    cart.push({
-        items: [],
-        id: id
-    });
-
-    const response = {
-        Carts: cart,
-    };  
-
-    res.status(201).json(response);
+    // function getRandom(min, max) {
+    //     min = Math.ceil(min);
+    //     max = Math.floor(max);
+    //     return Math.floor(Math.random() * (max - min)) + min;
+    // };
+    // let id = getRandom(0, 101);
+    // //id,timestamp,products
+    // const response = {
+    //     Carts: cart,
+    // };  
+    // res.status(201).json(response);
 });
 
 router.route('/:id').delete((req,res) =>{
