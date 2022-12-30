@@ -11,19 +11,21 @@ const cart = JSON.parse(dataCart);
 //ROUTES
 router.route('/').post((req,res) => {
 
-    res.send('llega un carrito')
+    const listCart = cart;
+    let randomId = Math.floor(Math.random() * 101);
+    let currentTime = new Date();
+    const newCart = {id: randomId, timestamp: currentTime, products: []};
 
-    // function getRandom(min, max) {
-    //     min = Math.ceil(min);
-    //     max = Math.floor(max);
-    //     return Math.floor(Math.random() * (max - min)) + min;
-    // };
-    // let id = getRandom(0, 101);
-    // //id,timestamp,products
-    // const response = {
-    //     Carts: cart,
-    // };  
-    // res.status(201).json(response);
+    listCart.push(newCart);
+    
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json", JSON.stringify(listCart))
+    } catch (error){
+        throw new Error(`Error al crear un carrito: ${error}`)
+    }
+
+    res.redirect('/');
+    
 });
 
 router.route('/:id').delete((req,res) =>{
