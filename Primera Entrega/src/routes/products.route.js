@@ -54,7 +54,7 @@ router.route('/').get((req,res) => {
         newProductId = products[products.length -1].id + 1;
     }
 
-    const newProduct = { id: newProductId, timestamp, nombre, descripcion, codigo, price};
+    const newProduct = { id: Number(newProductId), timestamp, nombre, descripcion, codigo, price};
 
     listProduct.push(newProduct);
 

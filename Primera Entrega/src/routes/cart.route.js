@@ -8,18 +8,19 @@ const router = Router();
 let dataCart = fs.readFileSync("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json");
 const cart = JSON.parse(dataCart);
 
+//PRODUCTS
+let dataProducts = fs.readFileSync("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/products.json");
+const products = JSON.parse(dataProducts);
+
 //ROUTES
 router.route('/').post((req,res) => {
 
-    const listCart = cart;
     let randomId = Math.floor(Math.random() * 101);
     let currentTime = new Date();
     const newCart = {id: randomId, timestamp: currentTime, products: []};
 
-    listCart.push(newCart);
-    
     try{
-        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json", JSON.stringify(listCart))
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json", JSON.stringify(newCart))
     } catch (error){
         throw new Error(`Error al crear un carrito: ${error}`)
     }
@@ -29,22 +30,33 @@ router.route('/').post((req,res) => {
 });
 
 router.route('/:id').delete((req,res) =>{
+
     const { id } = req.params;
+
+    const cartNew = cart;
 
     for(let i = 0; i< cart.length; i++) {
         if(cart[i].id === Number(id)) {
-            cart.splice(i, 1);
+            cartNew.splice(i, 1);
             break;
         };
     };
 
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json", JSON.stringify(cartNew))
+    } catch (error){
+        throw new Error(`Error al crear un carrito: ${error}`)
+    }
+
     const response = {
         action: "delete",
-        cartNew: cart, 
+        "Item select": id,
+        "New Cart": cartNew, 
     };
 
     res.status(201).json(response);
 });
+
 
 router.route('/:id/products').get((req,res) => {
     const { id } = req.params;
@@ -55,28 +67,40 @@ router.route('/:id/products').get((req,res) => {
             products.push(cart[i].items);
         };
     };
-
+    
     res.status(201).json({
         title: 'Productos elegidos',
         productos: products
     });
 
 
-}).post(upload.any(), (req,res) => {
-    const { id } = req.params;
-    const { items }   = req.body;
+}).post((req,res) => {
 
-    cart.forEach(obj => {
-        if(obj.id === Number(id)){
-            obj.items.push(items);
+    const { id } = req.params;
+    const productSelect = [];
+    const cartProduct = cart;
+
+    for(let i = 0; i< products.length; i++){
+        if(products[i].id === Number(id)){
+            productSelect.push(products[i]); 
+        };
     };
-    });
+
+    cartProduct.products.push(productSelect);
+
+    try{
+        fs.promises.writeFile("/home/agustin/programacion/CoderhouseBackend/Primera Entrega/src/data/cart.json", JSON.stringify(cartProduct));
+    } catch (error){
+        throw new Error(`Error al crear un carrito: ${error}`)
+    }
 
     res.status(201).json({
-        title: 'Carrito modificado',
-        carrito: cart
+        title: 'Producto agregado',
+        productos: productSelect
     });
+
 });
+
 
 router.route('/:id/products/:id_prod').delete((req,res) => {
     const { id } = req.params;
