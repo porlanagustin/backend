@@ -20,6 +20,7 @@ const createTable = async () => {
             productTable.increments("id").primary();
             productTable.string("name", 50).notNullable();
             productTable.integer("price").notNullable();
+            productTable.string("image").notNullable();
         });
 
         console.log("Product table created");

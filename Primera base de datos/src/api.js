@@ -7,9 +7,29 @@ class Contenedor {
     }
 
     // SAVE PRODUCT
-    async save(name, price) {
+    async saveProduct(name, price, image) {
         try {
-            const newProduct = await this.database(this.table).insert({ name, price: Number(price)});
+            const newProduct = await this.database(this.table).insert({ name, price: Number(price), image});
+
+            return newProduct;
+        } catch (err){
+            throw new Error(`Failed to save a new object: ${err}`);
+        }
+    }
+
+    async saveImage(email, message, time) {
+        try {
+            const newProduct = await this.database(this.table).insert({ email, message, time});
+
+            return newProduct;
+        } catch (err){
+            throw new Error(`Failed to save a new object: ${err}`);
+        }
+    }
+
+    async save(name, price, image) {
+        try {
+            const newProduct = await this.database(this.table).insert({ name, price: Number(price), image});
 
             return newProduct;
         } catch (err){

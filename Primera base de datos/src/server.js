@@ -1,16 +1,14 @@
-import express, { urlencoded } from 'express';
+import express from 'express';
 import { Server as IOServer } from 'socket.io';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import router from "./routes/index.js";
 import Contenedor from './api.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app =  express();
 
-app.use(express.static(__dirname + "/views"));
-app.use(urlencoded({ extended: true }));
-app.use('/', router);
+
+app.use(express.static(__dirname + "/public"));
 
 const expressServer = app.listen(3000, () => {
     console.log("Server 3000");
@@ -44,26 +42,29 @@ const messageApi = new Contenedor(
 );
 
 io.on('connection', async (socket) => {
-    console.log(`New client connected ${socket.id}`);
+    console.log(`Nuevo cliente conectado ${socket.id}`);
 
-    socket.emit("server:product", await messageApi.getAll());
-    socket.emit("server:message", await productApi.getAll());
+    socket.emit("server:products", await messageApi.getAll());
+    socket.emit("server:messages", await productApi.getAll());
 
-    socket.on("client:message", async (messageInfo) => {
-        await messageApi.save({ ...messageInfo, time: Date.now()});
-        io.emit("server:message", await messageApi.getAll());
-    });
-
-    socket.on("client:product", async (product) =>{
-        await productApi.save({
-            title: product.nameProduct,
-            price: Number(product.priceProduct),
+    socket.on("client:product", async (productData) => {
+        await productApi.saveProduct({
+            name: productData.name,
+            price: Number(productData.price),
+            image: productData.image,
         });
-        io.emit("server:product", await productApi.getAll());
+
+        io.emit('server:products', await productApi.getAll());
     });
+
+    socket.on("client:message", async (messageData) => {
+        await messageApi.saveImage({ email: messageData.email, message: messageData.message, time: Date.now()});
+
+        io.emit("server:messages", await messageApi.getAll());
+    })
 });
+
 
 app.on("error", (err) =>{
     console.log(err);
 });
-
