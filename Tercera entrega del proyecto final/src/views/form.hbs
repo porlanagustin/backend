@@ -1,0 +1,91 @@
+<style>
+  .user-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+  }
+
+  .product-form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    background-color: #F8F8F8;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .product-form h1 {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .product-form input[type="text"],
+  .product-form input[type="number"] {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .product-form input[type="submit"] {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #555;
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  .product-form input[type="submit"]:hover {
+    background-color: #333;
+  }
+   </style>
+
+<form action="/logout" method="get" class="user-form">
+  <h1>Bienvenido {{user.username}}</h1>
+  
+  <h3>Nombre: {{user.firstname}}</h3>
+  <h3>Apellido: {{user.lastname}}</h3>
+  <h3>Email: {{user.email}}</h3>
+  <h3>Tel: {{user.phone}}</h3>
+  <h3>Dirección: {{user.address}}</h3>
+  <h3>Edad: {{user.age}}</h3>
+  <img src="/{{user.photo}}" alt="Imagen subida"><br>
+  <br>
+  <br>
+  <button type="submit">Logout</button>
+</form>
+
+<div class="product-form">
+<h1>Carga tu producto</h1>
+<form id="productForm" method="post" action="/login/products">
+  <input type="text" name="title" placeholder="Nombre de producto">
+  <input type="number" step="0.01" name="price" placeholder="Precio">
+  <input type="text" name="thumbnail" placeholder="Url de la imagen">
+  <input type="submit">
+</form>
+</div>
+
+{{chat}}
+
+
+

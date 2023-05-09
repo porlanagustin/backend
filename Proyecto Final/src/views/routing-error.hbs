@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ROUTING ERROR</title>
+	<style>
+		body {
+			background-color: #f2f2f2; 
+		}
+		.container {
+			margin: auto; 
+			max-width: 800px; 
+		}
+		.jumbotron {
+			background-color: #fff; 
+			padding: 30px; 
+			border-radius: 10px; 
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+			text-align: center; 
+		}
+		h1 {
+			font-size: 3rem; 
+			margin-bottom: 20px; 
+			color: #333; 
+		}
+	</style>
+</head>
+<body>
+	<div class="container my-3">
+	    <div class="jumbotron">
+	        <h1>ROUTING ERROR</h1>
+	    </div>
+	</div>
+
+    <script>
+        function redireccionar(pagina) {
+        location.href = pagina;
+    } 
+        function volver() {
+        console.log('volver');
+        setTimeout(() => redireccionar('/'), 3000);
+    }
+        volver();
+    </script>
+
+</body>
+
+</html>
+

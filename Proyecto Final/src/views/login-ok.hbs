@@ -1,0 +1,50 @@
+ <style>
+        body {
+            background-color: #f1f1f1;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px #ccc;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 36px;
+            color: green;
+            margin-bottom: 20px;
+        }
+        h2, h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="card">
+        <h1>LOGIN OK</h1>
+        <h2>Bienvenido {{nombre}} {{apellido}}</h2>
+        <h3>Email utilizado: {{email}}</h3>
+    </div>
+</div>
+
+
+{{!-- <script>
+    function redireccionar(pagina) {
+        location.href = pagina;
+    } 
+    function volver() {
+        console.log('volver');
+        setTimeout(() => redireccionar('/login/adminproductos'), 5000);
+    }
+    volver();
+    
+</script> --}}
