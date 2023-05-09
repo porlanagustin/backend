@@ -18,6 +18,10 @@ const getLoginMail = (req, res) => {
             user.firstname,
             user.lastname,
             user.email,
+            user.phone,
+            user.adress,
+            user.age,
+            user.photo,
         )
 
         return res.render("login-ok", {
@@ -25,6 +29,10 @@ const getLoginMail = (req, res) => {
             nombre: user.firstname,
             apellido: user.lastname,
             email: user.email,
+            phone: user.phone,
+            adress: user.adress,
+            age: user.age,
+            photo: user.photo,
         });
     }
 

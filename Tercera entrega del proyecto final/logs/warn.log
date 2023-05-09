@@ -374,3 +374,4 @@
 {"level":40,"time":1683616751183,"pid":11062,"hostname":"cucho-hp","method":"GET","url":"/css/style.css"}
 {"level":40,"time":1683616751280,"pid":11062,"hostname":"cucho-hp","method":"GET","url":"/"}
 {"level":40,"time":1683616751479,"pid":11062,"hostname":"cucho-hp","method":"GET","url":"/favicon.ico"}
+{"level":40,"time":1683646580323,"pid":4820,"hostname":"cucho-hp","method":"GET","url":"/favicon.ico"}
