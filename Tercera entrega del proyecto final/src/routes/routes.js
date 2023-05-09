@@ -59,17 +59,12 @@ router.get("/login/adminproductos", (req, res) => {
 });
 
 //
-router.route("/login/products")
+router.route("/login/addProduct")
 
   .get(async (req, res) => {
+
     try {
-      const { user } = req.session.passport;
-      const userCart = await Carts.findOne({ username: user.username });
-      const products = await Product.find();
-      if (!user) {
-        return res.redirect("/login");
-      }
-      res.render("cart", { cart: userCart, products: products, user });
+      console.log("LLEGO EL GET DE CREAR PRODUCTOS")
     } catch (err) {
       logger.error(err);
     }
@@ -77,7 +72,10 @@ router.route("/login/products")
 
   .post((req, res) => {
     try {
-      const { productTitle } = req.body;
+      const { title, price, url } = req.body;
+      const newProduct = { title, price, url };
+      
+
       console.log(productTitle);
     } catch (err) {
       logger.error(err);

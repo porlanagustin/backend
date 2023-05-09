@@ -20,11 +20,6 @@ const getLoginMail = (req, res) => {
             user.email,
         )
 
-        sendSms(
-            user.username,
-            user.email
-        )
-
         return res.render("login-ok", {
             usuario: user.username,
             nombre: user.firstname,
