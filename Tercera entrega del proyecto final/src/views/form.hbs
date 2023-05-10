@@ -13,51 +13,27 @@
     max-width: 100%;
   }
 
-  .product-form {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 20px;
-    background-color: #F8F8F8;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .product-form h1 {
-    margin-top: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .product-form input[type="text"],
-  .product-form input[type="number"] {
-    display: block;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #CCC;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .product-form input[type="submit"] {
-    display: block;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #555;
-    color: #FFF;
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-  
-  .product-form input[type="submit"]:hover {
-    background-color: #333;
-  }
+  .product-table {
+  border-collapse: collapse;
+  margin-top: 50px;
+  float: right;
+  margin-right: 50px;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.product-table th {
+  background-color: #cccccc;
+  text-align: center;
+}
+
+.product-table td {
+  text-align: left;
+}
    </style>
 
 <form action="/logout" method="get" class="user-form">
@@ -75,17 +51,35 @@
   <button type="submit">Logout</button>
 </form>
 
-<div class="product-form">
-<h1>Carga tu producto</h1>
-<form id="productForm" method="post" action="/login/addProduct">
-  <input type="text" name="title" placeholder="Nombre de producto">
-  <input type="number" step="0.01" name="price" placeholder="Precio">
-  <input type="text" name="thumbnail" placeholder="Url de la imagen">
-  <input type="submit">
-</form>
-</div>
+<table class="product-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Precio</th>
+      <th>Descripción</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <td>{{this.title}}</td>
+      <td>{{this.price}}</td>
+      <td><img src="{{this.thumbnail}}"></td>
+      <td>
+        <form method="POST" action="/addProduct">
+          <input type="hidden" name="productId" value="{{this.id}}">
+          <button type="submit">Agregar al carrito</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
 
-{{chat}}
+
+
+
 
 
 

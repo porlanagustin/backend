@@ -44,15 +44,19 @@ router.get("/fail-register", authController.getRegisterFailiure);
 router.get("/logout", authController.logOut);
 
 //
-router.get("/login/adminproductos", (req, res) => {
+router.get("/login/adminproductos", async (req, res) => {
 
   try {
+
     const { user } = req.session.passport;
-    console.log(user.photo);
+
+    const products = await Product.findOne({ title: 'Diamante Azul'});
+    
     if (!user) {
       return res.redirect("/login");
     }
-    res.render("form",  { user });
+
+    res.render("form", { user, products });
   } catch (err) {
     logger.error(err);
   }
