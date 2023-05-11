@@ -63,26 +63,21 @@ router.get("/login/adminproductos", async (req, res) => {
 });
 
 //
-router.route("/login/addProduct")
-
-  .get(async (req, res) => {
-
+router.route("/addProduct")
+  .post( async (req, res) => {
     try {
-      console.log("LLEGO EL GET DE CREAR PRODUCTOS")
+      const { title, price, productId } = req.body;
+
+      const cartProducts = {productId, title, price};
+
+      const { user } = req.session.passport;
+
+      const products = await Product.findOne({ title: 'Diamante Azul'});
+
+      res.render("form", { user, products, cartProducts });
     } catch (err) {
       logger.error(err);
-    }
-  })
-
-  .post((req, res) => {
-    try {
-      const { title, price, url } = req.body;
-      const newProduct = { title, price, url };
-      
-
-      console.log(productTitle);
-    } catch (err) {
-      logger.error(err);
+      res.status(500).send("Error al agregar el producto al carrito.");
     }
   });
 
