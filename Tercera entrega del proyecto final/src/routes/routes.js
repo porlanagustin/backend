@@ -47,30 +47,28 @@ router.get("/logout", authController.logOut);
 router.get("/login/adminproductos", async (req, res) => {
 
   try {
-
     const { user } = req.session.passport;
-
     const products = await Product.findOne({});
     
     if (!user) {
       return res.redirect("/login");
     }
 
-    res.render("form", { user, products });
+    res.render("inicio-ok", { user, products });
   } catch (err) {
     logger.error(err);
   }
 });
 
-//
 router.route("/addProduct")
   .post( async (req, res) => {
     try {
       const { title, price, productId } = req.body;
+      const { user } = req.session.passport;
       const cartProduct = { productId, title, price };
       const products = await Product.findOne({});
       
-      res.render("cart-container", { products, cartProduct});
+      res.render("show-cart", { user, products, cartProduct});
     } catch (err) {
       logger.error(err);
       res.status(500).send("Error al agregar el producto al carrito.");

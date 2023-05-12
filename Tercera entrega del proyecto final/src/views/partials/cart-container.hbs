@@ -39,26 +39,22 @@
   <table class="cart-table">
     <thead>
       <tr>
-        <th></th>
+        <th>Nombre</th>
         <th>Precio</th>
         <th>Descripción</th>
       </tr>
     </thead>
     <tbody>
-      {{#each cartProducts}}
       <tr>
-        <td>{{cartProducts.title}}</td>
-        <td>{{cartProducts.price}}</td>
+        <td>{{cartProduct.title}}</td>
+        <td>{{cartProduct.price}}</td>
         <td>
           <form method="POST" action="/buyProducts">
-            <input type="hidden" name="productId" value="{{cartProducts.productId}}">
+            <input type="hidden" name="productId" value="{{cartProduct.productId}}">
             <button type="submit">Comprar</button>
           </form>
         </td>
       </tr>
-      {{/each}}
     </tbody>
   </table>
-  </div>
-
-{{>product-table}}
+</div>
