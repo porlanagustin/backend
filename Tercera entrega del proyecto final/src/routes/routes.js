@@ -50,7 +50,7 @@ router.get("/login/adminproductos", async (req, res) => {
 
     const { user } = req.session.passport;
 
-    const products = await Product.findOne({ title: 'Diamante Azul'});
+    const products = await Product.findOne({});
     
     if (!user) {
       return res.redirect("/login");
@@ -67,14 +67,10 @@ router.route("/addProduct")
   .post( async (req, res) => {
     try {
       const { title, price, productId } = req.body;
-
-      const cartProducts = {productId, title, price};
-
-      const { user } = req.session.passport;
-
-      const products = await Product.findOne({ title: 'Diamante Azul'});
-
-      res.render("form", { user, products, cartProducts });
+      const cartProduct = { productId, title, price };
+      const products = await Product.findOne({});
+      
+      res.render("cart-container", { products, cartProduct});
     } catch (err) {
       logger.error(err);
       res.status(500).send("Error al agregar el producto al carrito.");

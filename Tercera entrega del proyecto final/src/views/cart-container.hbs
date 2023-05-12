@@ -1,0 +1,64 @@
+<style>
+  .cart-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.cart-table th,
+.cart-table td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.cart-table th {
+  background-color: #cccccc;
+  text-align: center;
+}
+
+.cart-table td {
+  text-align: left;
+}
+</style>
+
+<div class="cart-container">
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Precio</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each cartProducts}}
+      <tr>
+        <td>{{cartProducts.title}}</td>
+        <td>{{cartProducts.price}}</td>
+        <td>
+          <form method="POST" action="/buyProducts">
+            <input type="hidden" name="productId" value="{{cartProducts.productId}}">
+            <button type="submit">Comprar</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  </div>
+
+{{>product-table}}

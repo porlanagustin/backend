@@ -4,140 +4,76 @@
     top: 0;
     left: 0;
     padding: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    background-color: #fff;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    background-color: #f7f7f7;
     color: #333;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+    max-width: 90%;
+    text-align: center;
+    margin: 20px;
   }
 
-  .product-table {
-  border-collapse: collapse;
-  margin-top: 50px;
-  float: right;
-  margin-right: 50px;
-}
+  .user-form h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
 
-.product-table th,
-.product-table td {
-  border: 1px solid black;
-  padding: 10px;
-}
+  .user-form h3 {
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
 
-.product-table th {
-  background-color: #cccccc;
-  text-align: center;
-}
+  .user-form img {
+    display: block;
+    margin: 0 auto;
+    max-width: 50%;
+    margin-top: 20px;
+  }
 
-.product-table td {
-  text-align: left;
-}
+  .user-form button {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-.cart-container {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  color: #333;
-}
-
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.cart-table th,
-.cart-table td {
-  border: 1px solid black;
-  padding: 10px;
-}
-
-.cart-table th {
-  background-color: #cccccc;
-  text-align: center;
-}
-
-.cart-table td {
-  text-align: left;
-}
-   </style>
+  .user-form button:hover {
+    background-color: #444;
+  }
+</style>
 
 <form action="/logout" method="get" class="user-form">
-  <h1>Bienvenido {{user.username}}</h1>
-  
+  <h1>Bienvenido</h1>
   <h3>Nombre: {{user.firstname}}</h3>
   <h3>Apellido: {{user.lastname}}</h3>
   <h3>Email: {{user.email}}</h3>
   <h3>Tel: {{user.phone}}</h3>
   <h3>Dirección: {{user.address}}</h3>
   <h3>Edad: {{user.age}}</h3>
-  <img src="/{{user.photo}}" alt="Imagen subida"><br>
-  <br>
-  <br>
-  <button type="submit">Logout</button>
+  <img src="/{{user.photo}}" alt="Imagen subida">
+  <button type="submit">Cerrar sesión</button>
 </form>
 
-<table class="product-table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Precio</th>
-      <th>Descripción</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each products}}
-    <tr>
-      <td>{{this.title}}</td>
-      <td>{{this.price}}</td>
-      <td><img src="{{this.thumbnail}}"></td>
-      <td>
-        <form method="POST" action="/addProduct">
-          <input type="hidden" name="productId" value="{{this._id}}">
-          <input type="hidden" name="title" value="{{this.title}}">
-          <input type="hidden" name="price" value="{{this.price}}">
-          <button type="submit">Agregar al carrito</button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+{{>product-table}}
 
-<div class="cart-container">
-  <table class="cart-table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Precio</th>
-        <th>Descripción</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each cartProducts}}
-      <tr>
-        <td>{{this.title}}</td>
-        <td>{{this.price}}</td>
-        <td>
-          <form method="POST" action="/buyProducts">
-            <input type="hidden" name="productId" value="{{this._id}}">
-            <button type="submit">Comprar</button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+{{cart-container}}
+
+
+
+
+ 
+
+
 
 
 

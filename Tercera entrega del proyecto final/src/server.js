@@ -20,6 +20,7 @@ import router from "../src/routes/routes.js";
 import { Product } from "./table/product.model.js";
 import { User } from "./table/user.model.js";
 
+
 mongoose.set('strictQuery', true);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
