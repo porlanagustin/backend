@@ -41,20 +41,18 @@
       <tr>
         <th>Nombre</th>
         <th>Precio</th>
-        <th>Descripción</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{cartProduct.title}}</td>
         <td>{{cartProduct.price}}</td>
-        <td>
-          <form method="POST" action="/buyProducts">
+        
+      </tr>
+      <form method="POST" action="/buyProducts">
             <input type="hidden" name="productId" value="{{cartProduct.productId}}">
             <button type="submit">Comprar</button>
           </form>
-        </td>
-      </tr>
     </tbody>
   </table>
 </div>

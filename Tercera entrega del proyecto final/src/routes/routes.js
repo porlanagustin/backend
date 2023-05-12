@@ -18,22 +18,18 @@ router
   .post(
     passport.authenticate("login", { failureRedirect: "/fail-login" }),
     authController.getLogin
-  );
+);
 
-
-  // REGISTER
+// REGISTER
 router.route("/register")
   
-.get(authController.getRegister)
+  .get(authController.getRegister)
 
-.post(
+  .post(
     passport.authenticate("register", { failureRedirect: "/fail-register" }),
     authController.getLoginMail
-  );
+);
 
-
-
-  
 // FAIL LOGIN  
 router.get("/fail-login", authController.getLoginFailiure);
 
@@ -43,16 +39,18 @@ router.get("/fail-register", authController.getRegisterFailiure);
 // LOGOUT
 router.get("/logout", authController.logOut);
 
-//
+// INICIO OK
 router.get("/login/adminproductos", async (req, res) => {
 
   try {
     const { user } = req.session.passport;
-    const products = await Product.findOne({});
+    const products = await Product.find({}).lean();
     
     if (!user) {
       return res.redirect("/login");
     }
+
+    console.log(products)
 
     res.render("inicio-ok", { user, products });
   } catch (err) {
@@ -60,13 +58,14 @@ router.get("/login/adminproductos", async (req, res) => {
   }
 });
 
+//AGREGAR PRODUCTO AL CARRITO
 router.route("/addProduct")
   .post( async (req, res) => {
     try {
       const { title, price, productId } = req.body;
       const { user } = req.session.passport;
       const cartProduct = { productId, title, price };
-      const products = await Product.findOne({});
+      const products = await Product.find({}).lean();
       
       res.render("show-cart", { user, products, cartProduct});
     } catch (err) {
