@@ -7,6 +7,7 @@ import logger from "../lib/logger.js";
 import { Carts } from "../table/car.model.js";
 import { Product } from "../table/product.model.js";
 import sendBuyData from "../contact/buyInfoEmail.js";
+import sendInfoSms from "../contact/buyInfoSms.js";
 
 const router = Router();
 
@@ -117,6 +118,7 @@ router.route('/buyProducts')
   const products = cart.products;
 
   sendBuyData(products, username, email)
+  sendInfoSms(products, email)
 
   res.sendStatus(200)
 })
