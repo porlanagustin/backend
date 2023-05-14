@@ -44,15 +44,16 @@
       </tr>
     </thead>
     <tbody>
+      {{#each cartFinded.products}}
       <tr>
-        <td>{{cartProduct.title}}</td>
-        <td>{{cartProduct.price}}</td>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
         
       </tr>
+      {{/each}}
       <form method="POST" action="/buyProducts">
-            <input type="hidden" name="productId" value="{{cartProduct.productId}}">
             <button type="submit">Comprar</button>
-          </form>
+      </form>
     </tbody>
   </table>
 </div>

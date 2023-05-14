@@ -64,10 +64,19 @@ router.route("/addProduct")
     try {
       const { title, price, productId } = req.body;
       const { user } = req.session.passport;
-      const cartProduct = { productId, title, price };
       const products = await Product.find({}).lean();
-      
-      res.render("show-cart", { user, products, cartProduct});
+
+      const cartFinded = await Carts.findOne({ username: user.username}).lean();
+
+      if (cartFinded) {
+        cartFinded.products.push({ title, price, productId });
+
+        await Carts.findOneAndUpdate({ username: user.username}, cartFinded);
+      } else {
+        console.log("No se encontro carrito para el usuario")
+      }
+
+      res.render("show-cart", { user, products, cartFinded });
     } catch (err) {
       logger.error(err);
       res.status(500).send("Error al agregar el producto al carrito.");
