@@ -1,7 +1,5 @@
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import args from "../yargs.js";
-import { fork } from "child_process";
 import sendMail from "../contact/nodemail.js";
 import sendSms from "../contact/twilio.js";
 
@@ -23,6 +21,8 @@ const getLoginMail = (req, res) => {
             user.age,
             user.photo,
         )
+
+        sendSms(user.username, user.email)
 
         return res.render("login-ok", {
             usuario: user.username,
@@ -88,38 +88,11 @@ const logOut = (req, res) => {
     });
 };
 
-const info = (req, res) => {
-
-    res.render("info", {
-        entryArgs: JSON.stringify(args),
-        platform: process.platform,
-        versionNode: process.version,
-        memory: process.memoryUsage().rss,
-        path: process.execPath,
-        processId: process.pid,
-        dir: process.cwd(),
-    })
-}
-
-const getRandom = (req, res) => {
-    const { cant } = req.query;
-    const childProcess = fork("./src/child.js");
-    const quantity = cant ? cant : 100000000;
-
-    childProcess.send(quantity);
-
-    childProcess.on("message", (response) => {
-        res.json(response);
-    });
-}
-
 export const authController = {
     getLogin,
     getRegister,
     getLoginFailiure,
     getRegisterFailiure,
     logOut,
-    info,
-    getRandom,
-    getLoginMail,
+    getLoginMail
 };

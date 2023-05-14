@@ -11,7 +11,7 @@ const transporter = createTransport({
     }
 });
 
-const sendMail = async (usuario, nombre, apellido, email) => {
+const sendMail = async (usuario, nombre, apellido, email, phone, adress, age, photo) => {
     try {
         const mailOptions = {
             from: "Servidor",

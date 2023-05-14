@@ -1,7 +1,7 @@
 import twilio from 'twilio';
 
 const accountSid = 'ACee86bf7ccd82090a4015e4155b9db053';
-const authToken =  '465d16b162009723007399f91daed9bf';
+const authToken =  '2ff63256f377d0d7c646d4dcbaf08107';
 
 const client = twilio(accountSid, authToken);
 

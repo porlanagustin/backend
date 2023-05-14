@@ -2,7 +2,6 @@ import compression from "compression";
 import { Router } from "express";
 import passport from "passport";
 import { authController } from "../controllers/index.js";
-import generateFaker from "../faker.js";
 import logger from "../lib/logger.js";
 import { Carts } from "../table/car.model.js";
 import { Product } from "../table/product.model.js";
@@ -123,14 +122,5 @@ router.route('/buyProducts')
 
   res.render("buy-success", { user, products })
 })
-
-//
-router.get("/info", compression(), authController.info);
-
-//
-router.get("/info-uncomp", authController.info);
-
-//
-router.get("/api/random", authController.getRandom);
 
 export default router;
