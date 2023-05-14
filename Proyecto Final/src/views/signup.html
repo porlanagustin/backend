@@ -1,44 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <title>SIGNUP</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <style>
-        body {
-            background-color: #f2f2f2; 
-        }
-        .container {
-            margin: 0 auto; 
-            max-width: 600px; 
-            text-align: center; 
-            margin-top: 5rem;
-        }
-        .jumbotron {
-            background-color: #fff; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
-        h1 {
-            font-size: 3rem; 
-            margin-bottom: 20px; 
-            color: #333; 
-        }
-        input[type="text"], input[type="password"], input[type="email"] {
-            margin-bottom: 20px; 
-        }
-        input[type="submit"] {
-            margin-top: 20px; 
-        }
-    </style>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 </head>
 
 <body>
-    <div class="container">
+    <div class="container my-5">
         <div class="jumbotron">
             <h1>SIGNUP</h1>
+            <br />
             <form class="form" role="form" action="/register" enctype="application/x-www-form-urlencoded" method="post"
                 autocomplete="off">
                 <div class="form-group">
@@ -47,23 +23,45 @@
                 <div class="form-group">
                     <input name="password" placeholder="Password" class="form-control" type="password" required />
                 </div>
-                <div class="form-group">
-                    <input name="passwordRepeat" placeholder="Repeat Password" class="form-control" type="password" required />
-                </div>
+
+                <br />
+
                 <div class="form-group">
                     <input name="firstname" placeholder="Firstname" class="form-control" type="text" required />
                 </div>
+
                 <div class="form-group">
                     <input name="lastname" placeholder="Lastname" class="form-control" type="text" required />
                 </div>
+
                 <div class="form-group">
                     <input name="email" placeholder="Email" class="form-control" type="email" required />
                 </div>
+
                 <div class="form-group">
-                    <input class="btn btn-success" type="submit" value="Singup" />
+                    <input name="phone" placeholder="Phone" class="form-control" type="text" required />
                 </div>
+
+                <div class="form-group">
+                    <input name="adress" placeholder="Adress" class="form-control" type="text" required />
+                </div>
+
+                <div class="form-group">
+                    <input name="age" placeholder="Age" class="form-control" type="datetime" required />
+                </div>
+
+                <div class="form-group">
+                    <input name="photo" placeholder="Url Photo" class="form-control" type="text" required />
+                </div>
+                
+
+                <div class="form-group">
+                    <input class="btn btn-success my-3" type="submit" value="Singup" />
+                </div>
+                
             </form>
         </div>
     </div>
 </body>
+
 </html>
