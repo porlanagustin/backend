@@ -15,7 +15,7 @@ const sendInfoSms = async(products, email) => {
         const smsOptions = {
             from: '+14346088383',
             to: '+543515144695',
-            body: `Compraste los siguientes productos ${productHtml} con el email ${email}`,
+            body: `Su pedido ha sido recibido y se encuentra en proceso. Productos seleccionados: ${productHtml} ///// Registrado con el email: ${email}`,
         };
 
         const message = await client.messages.create(smsOptions);

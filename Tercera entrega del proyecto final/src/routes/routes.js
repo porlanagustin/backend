@@ -114,13 +114,14 @@ router.put("/cart/:productId", async (req, res) => {
 router.route('/buyProducts')
  .post( async (req, res) => {
   const { username, email } = req.body;
+  const { user } = req.session.passport;
   const cart = await Carts.findOne({ username: username});
   const products = cart.products;
 
   sendBuyData(products, username, email)
   sendInfoSms(products, email)
 
-  res.sendStatus(200)
+  res.render("buy-success", { user, products })
 })
 
 //
