@@ -2,8 +2,8 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import args from "../yargs.js";
 import { fork } from "child_process";
-import sendMail from "../nodemail.js";
-import sendSms from "../twilio.js";
+import sendMail from "../contact/nodemail.js";
+import sendSms from "../contact/twilio.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

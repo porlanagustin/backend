@@ -6,6 +6,7 @@ import generateFaker from "../faker.js";
 import logger from "../lib/logger.js";
 import { Carts } from "../table/car.model.js";
 import { Product } from "../table/product.model.js";
+import sendBuyData from "../contact/buyInfoEmail.js";
 
 const router = Router();
 
@@ -49,8 +50,6 @@ router.get("/login/adminproductos", async (req, res) => {
     if (!user) {
       return res.redirect("/login");
     }
-
-    console.log(products)
 
     res.render("inicio-ok", { user, products });
   } catch (err) {
@@ -110,6 +109,17 @@ router.put("/cart/:productId", async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.route('/buyProducts')
+ .post( async (req, res) => {
+  const { username, email } = req.body;
+  const cart = await Carts.findOne({ username: username});
+  const products = cart.products;
+
+  sendBuyData(products, username, email)
+
+  res.sendStatus(200)
+})
 
 //
 router.get("/info", compression(), authController.info);

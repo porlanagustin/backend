@@ -95,7 +95,6 @@ if (cluster.isPrimary && params.mode.toUpperCase() === "CLUSTER") {
   app.use((req, res, next) => {
     logger.info({
       method: req.method,
-      url: req.url,
     });
     next();
   });
