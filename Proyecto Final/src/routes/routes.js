@@ -1,4 +1,3 @@
-import compression from "compression";
 import { Router } from "express";
 import passport from "passport";
 import { authController } from "../controllers/index.js";
