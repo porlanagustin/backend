@@ -31,7 +31,7 @@ router.get("/fail-register", authController.getRegisterFailiure);
 
 router.get("/logout", authController.logOut);
 
-router.get("/login/adminproductos", async (req, res) => {
+router.get("/login/products", async (req, res) => {
 
   try {
     const { user } = req.session.passport;
@@ -47,7 +47,7 @@ router.get("/login/adminproductos", async (req, res) => {
   }
 });
 
-router.route("/addProduct")
+router.route("/cart")
   .post( async (req, res) => {
     try {
       const { title, price, productId } = req.body;

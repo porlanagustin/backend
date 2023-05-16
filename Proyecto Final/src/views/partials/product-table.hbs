@@ -38,7 +38,7 @@
       <td>{{this.price}}</td>
       <td><img src="{{this.thumbnail}}"></td>
       <td>
-        <form method="POST" action="/addProduct">
+        <form method="POST" action="/cart">
           <input type="hidden" name="productId" value="{{this._id}}">
           <input type="hidden" name="title" value="{{this.title}}">
           <input type="hidden" name="price" value="{{this.price}}">
