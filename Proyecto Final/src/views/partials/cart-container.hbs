@@ -90,8 +90,7 @@
     <input type="hidden" name="email" value="{{user.email}}">
     <button type="submit">Comprar</button>
   </form>
-  <form method="post" action="/deleteCart">
-    <input type="hidden" name="cartId" value="{{cartFinded._id}}">
+  <form method="post" action="/emptyCart">
     <button type="submit" class="delete-all">Vaciar carrito</button>
   </form>
 </div>

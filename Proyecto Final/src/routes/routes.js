@@ -64,6 +64,8 @@ router.route("/addProduct")
         console.log("No se encontro carrito para el usuario")
       }
 
+  
+
       res.render("show-cart", { user, products, cartFinded });
     } catch (err) {
       logger.error(err);
@@ -112,11 +114,19 @@ router.route('/buyProducts')
   res.render("buy-success", { user, products })
 })
 
-router.post('/deleteCart', async (req, res) => {
-  
-  const cart = await Carts.findOne({ username: req.session.passport.username});
+router.post('/emptyCart', async (req, res) => {
+  const { user } = req.session.passport;
+  try {
+    const cart = await Carts.findOne({ username: user.username });
+    const { _id } = cart;
+    await Carts.findByIdAndUpdate(_id, { products: [] });
 
-  const products = cart.products;
-})
+    res.render("empty-cart")
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Ocurrió un error al vaciar el carrito');
+  }
+});
 
 export default router;
