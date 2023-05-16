@@ -85,12 +85,14 @@
     </tbody>
   </table>
   <div class="cart-footer">
-    <form method="post" action="/buyProducts">
-          <input type="hidden" name="username" value="{{user.username}}">
-          <input type="hidden" name="email" value="{{user.email}}">
-          <input type="hidden" name="">
-          <button type="submit">Comprar</button>
-        </form>
-    <span class="delete-all">Vaciar carrito</span>
-  </div>
+  <form method="post" action="/buyProducts">
+    <input type="hidden" name="username" value="{{user.username}}">
+    <input type="hidden" name="email" value="{{user.email}}">
+    <button type="submit">Comprar</button>
+  </form>
+  <form method="post" action="/deleteCart">
+    <input type="hidden" name="cartId" value="{{cartFinded._id}}">
+    <button type="submit" class="delete-all">Vaciar carrito</button>
+  </form>
+</div>
 </div>

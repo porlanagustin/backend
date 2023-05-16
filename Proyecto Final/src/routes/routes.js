@@ -9,37 +9,28 @@ import sendInfoSms from "../contact/buyInfoSms.js";
 
 const router = Router();
 
-// LOGIN
-router
-  .route("/login")
-  
-  .get(authController.getLogin)
-  
-  .post(
+
+router.route("/login")
+.get(authController.getLogin)
+.post(
     passport.authenticate("login", { failureRedirect: "/fail-login" }),
     authController.getLogin
 );
 
-// REGISTER
-router.route("/register")
-  
-  .get(authController.getRegister)
 
-  .post(
+router.route("/register")
+.get(authController.getRegister)
+.post(
     passport.authenticate("register", { failureRedirect: "/fail-register" }),
     authController.getLoginMail
 );
-
-// FAIL LOGIN  
+ 
 router.get("/fail-login", authController.getLoginFailiure);
 
-// FAIL REGISTER
 router.get("/fail-register", authController.getRegisterFailiure);
 
-// LOGOUT
 router.get("/logout", authController.logOut);
 
-// INICIO OK
 router.get("/login/adminproductos", async (req, res) => {
 
   try {
@@ -56,7 +47,6 @@ router.get("/login/adminproductos", async (req, res) => {
   }
 });
 
-//AGREGAR PRODUCTO AL CARRITO
 router.route("/addProduct")
   .post( async (req, res) => {
     try {
@@ -120,6 +110,13 @@ router.route('/buyProducts')
   sendInfoSms(products, email)
 
   res.render("buy-success", { user, products })
+})
+
+router.post('/deleteCart', async (req, res) => {
+  
+  const cart = await Carts.findOne({ username: req.session.passport.username});
+
+  const products = cart.products;
 })
 
 export default router;
