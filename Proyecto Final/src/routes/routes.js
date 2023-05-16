@@ -12,17 +12,13 @@ const router = Router();
 
 router.route("/login")
 .get(authController.getLogin)
-.post(
-    passport.authenticate("login", { failureRedirect: "/fail-login" }),
-    authController.getLogin
+.post(passport.authenticate("login", { failureRedirect: "/fail-login" }),authController.getLogin
 );
 
 
 router.route("/register")
 .get(authController.getRegister)
-.post(
-    passport.authenticate("register", { failureRedirect: "/fail-register" }),
-    authController.getLoginMail
+.post(passport.authenticate("register", { failureRedirect: "/fail-register" }),authController.getLoginMail
 );
  
 router.get("/fail-login", authController.getLoginFailiure);
@@ -74,31 +70,23 @@ router.route("/cart")
   });
 
 router.put("/cart/:productId", async (req, res) => {
-  try {
-
-    const { productId } = req.params;
-
-    const product = await Product.findById(productId);
-
-    const cart = await Carts.findOne({
-      username: req.session.passport.user.username,
-    });
-
-    cart.products.push(product);
-
-    await Carts.updateOne(
-      { username: req.session.passport.user.username },
-      cart
-    );
-
-    res.sendStatus(200);
-
-  } catch (err) {
-    console.log(err);
-    logger.error({ error: err }, "Error adding product");
-
-    res.sendStatus(500);
-  }
+  // try {
+  //   const { productId } = req.params;
+  //   const product = await Product.findById(productId);
+  //   const cart = await Carts.findOne({
+  //     username: req.session.passport.user.username,
+  //   });
+  //   cart.products.push(product);
+  //   await Carts.updateOne(
+  //     { username: req.session.passport.user.username },
+  //     cart
+  //   );
+  //   res.sendStatus(200);
+  // } catch (err) {
+  //   console.log(err);
+  //   logger.error({ error: err }, "Error adding product");
+  //   res.sendStatus(500);
+  // }
 });
 
 router.route('/buyProducts')
