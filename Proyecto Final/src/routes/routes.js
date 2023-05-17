@@ -74,13 +74,17 @@ router.route("/cart")
 router.route('/buyProducts')
 
  .post( async (req, res) => {
-  const { username, email } = req.body;
   const { user } = req.session.passport;
-  const cart = await Carts.findOne({ username: username});
+
+  const cart = await cartManager.findOneCart(user.username)
+  if (!cart) {
+    return res.status(400).send(`No se encontró carrito para el usuario ${user.username}`);
+  }
+  
   const products = cart.products;
 
-  sendBuyData(products, username, email)
-  sendInfoSms(products, email)
+  sendBuyData(products, user.username, user.email)
+  sendInfoSms(products, user.email)
 
   res.render("buy-success", { user, products })
 })
@@ -88,7 +92,7 @@ router.route('/buyProducts')
 router.post('/emptyCart', async (req, res) => {
   const { user } = req.session.passport;
   try {
-    const cart = await Carts.findOne({ username: user.username });
+    const cart = await cartManager.findOneCart(user.username)
     const { _id } = cart;
     await Carts.findByIdAndUpdate(_id, { products: [] });
 
