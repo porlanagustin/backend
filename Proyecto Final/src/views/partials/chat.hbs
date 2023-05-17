@@ -1,6 +1,75 @@
-<div id="messagesPool"></div>
-<form id="messageForm" style="margin-top: 1em">
+<style>
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 1em;
+  padding: 1em;
+  width: calc(25% - 2em);
+  font-family: Arial, sans-serif;
+}
+.chat-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+#messagesPool {
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+  margin: 0;
+  padding: 0.5em;
+  font-size: 0.9em;
+}
+#messageForm {
+  clear: both;
+  margin-top: 0.5em;
+}
+#usernameInput {
+  display: block;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 0.9em;
+}
+#messageInput {
+  width: 100%;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+}
+#messageInput:focus, #usernameInput:focus {
+  outline: none;
+  border-color: #4c75a3;
+}
+#submitBtn {
+  background-color: #4c75a3;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5em;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+#submitBtn:hover {
+  background-color: #345c87;
+}
+</style>
+
+<div class="chat-container">
+  <div class="chat-title">Chat</div>
+  <div id="messagesPool"></div>
+  <form id="messageForm">
     <input id="usernameInput" type="email" placeholder="Ingrese su e-mail" />
     <input id="messageInput" type="text" placeholder="Mensaje" />
-    <input type="submit" value="Enviar" />
-</form>
+    <button type="submit" id="submitBtn">Enviar</button>
+  </form>
+</div>

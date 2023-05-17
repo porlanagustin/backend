@@ -52,6 +52,18 @@ class CartManagerMongo {
       throw new Error("Error al buscar el carrito", error);
     }
   }
+
+  async addToCart(user, product){
+
+    const cartFinded = await this.Carts.findOne({ username: user }).lean();
+
+    if (cartFinded) {
+      cartFinded.products.push(product);
+      await this.Carts.findOneAndUpdate({ username: user }, cartFinded);
+    } else {
+      await this.Carts.create({ products: [product], username: user });
+    }
+  }
 }
 
 export default CartManagerMongo;

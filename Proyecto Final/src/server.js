@@ -10,15 +10,13 @@ import { dirname, join } from "path";
 import { Server as IOServer } from "socket.io";
 import { fileURLToPath } from "url";
 import yargs from "yargs";
-import Contenedor from "./crud/Contenedor.js";
-import ContenedorMongo from "./crud/ContenedorMongo.js";
 import sqliteConfig from "./db/sqlite.js";
 import logger from "./lib/logger.js";
 import { passportStrategies } from "./lib/passport.lib.js";
-import invalidUrl from "./middleware/invalidUrl.middleware.js";
+import { middlewares } from "./middleware/middlewares.js";
 import router from "../src/routes/routes.js";
-import { Product } from "./table/product.model.js";
 import { User } from "./table/user.model.js";
+import Contenedor from './crud/Contenedor.js';
 
 
 mongoose.set('strictQuery', true);
@@ -112,7 +110,6 @@ if (cluster.isPrimary && params.mode.toUpperCase() === "CLUSTER") {
 
   const io = new IOServer(expressServer);
 
-  const productApi = new ContenedorMongo(Product);
   const messageApi = new Contenedor(sqliteConfig, "chat");
 
   const time = moment().format("DD MM YYYY hh:mm:ss");
@@ -120,23 +117,16 @@ if (cluster.isPrimary && params.mode.toUpperCase() === "CLUSTER") {
   app.use(express.static(__dirname + "/views/layouts"));
 
   io.on("connection", async (socket) => {
-    console.log(`New connection, socket ID: ${socket.id}`);
-
+    
     socket.emit("server:message", await messageApi.getAll());
-
-    socket.emit("server:product", await productApi.getAll());
 
     socket.on("client:message", async (messageInfo) => {
       await messageApi.save({ ...messageInfo, time });
       io.emit("server:message", await messageApi.getAll());
     });
-    socket.on("client:product", async (product) => {
-      await productApi.save(product);
-      io.emit("server:product", await productApi.getAll());
-    });
   });
 
-  app.use(invalidUrl);
+  app.use(middlewares.invalidUrl);
 
   app.on("error", (err) => {
     console.log(err);

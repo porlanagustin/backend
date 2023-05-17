@@ -7,7 +7,7 @@ class ProductManagerMongo {
 
     async getProducts(){
         try {
-            return await this.Product.find({})
+            return await this.Product.find({}).lean();
         } catch (err) {
             return new Error("Error al encontrar productos", err)
         }

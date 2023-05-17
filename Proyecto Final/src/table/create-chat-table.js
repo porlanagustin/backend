@@ -3,7 +3,7 @@ import sqliteConfig from "../db/sqlite.js";
 
 const sqliteDatabase = knex(sqliteConfig);
 
-const createProductsTable = async () => {
+const createChatTable = async () => {
     try {
         await sqliteDatabase.schema.dropTableIfExists("chat")
         await sqliteDatabase.schema.createTable("chat", (chatTable) => {
@@ -22,4 +22,4 @@ const createProductsTable = async () => {
     }
 };
 
-createProductsTable();
+createChatTable()
